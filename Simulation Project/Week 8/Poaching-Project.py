@@ -78,6 +78,6 @@ while run:
             grid[r][c] = nextgrid[r][c]
       
     window.update()
-    sleep(0.5)
+    sleep(0.01)
 
 window.mainloop()
