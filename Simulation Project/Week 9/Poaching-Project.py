@@ -1,10 +1,10 @@
-#from tkinter import * 
-#from tkinter.ttk import *
-#from time import sleep
+from tkinter import * 
+from tkinter.ttk import *
+from time import sleep
 from random import randint, random
-import matplotlib.pyplot as plt
+#import matplotlib.pyplot as plt
 
-runs = 500
+runs = 1
 results = []
 
 for run_time in range(runs):
@@ -32,7 +32,7 @@ for run_time in range(runs):
             d = randint(5,80)
         grid[c][d] = 1 #Assign poacher to cell
     
-    for Pr in range(0,15):
+    for Pr in range(0,5):
         e = randint(5,43)
         f = randint(5,80)
         while grid[e][f] == 9 or grid[e][f] == 1 or grid[e][f] == 6:
@@ -40,17 +40,17 @@ for run_time in range(runs):
             f = randint(5,80)
         grid[e][f] = 6
         
-    #window = Tk() #Create window
-    #window.geometry('1200x800') #Window dimensions
-    #window.title("Poaching") #Window name
-    #canvas = Canvas(window, width=1400, height=1000, bg='white') #Canvas in window dimensions
-    #canvas.pack(anchor=CENTER, expand=True)
+    window = Tk() #Create window
+    window.geometry('1200x800') #Window dimensions
+    window.title("Poaching") #Window name
+    canvas = Canvas(window, width=1400, height=1000, bg='white') #Canvas in window dimensions
+    canvas.pack(anchor=CENTER, expand=True)
     
-    # def handler():
-    #     global run
-    #     run = False
-    #     window.destroy()
-    # window.protocol("WM_DELETE_WINDOW", handler)
+    def handler():
+        global run
+        run = False
+        window.destroy()
+    window.protocol("WM_DELETE_WINDOW", handler)
     
     run = True
     
@@ -87,22 +87,22 @@ for run_time in range(runs):
             run = False
             break
     
-        # if ITER %20 == 0: #If Iteration count is divisable by 10
-        #     print(f"Iteration: {ITER}. {ELEPH} elephants currently living.")
+        if ITER %20 == 0: #If Iteration count is divisable by 10
+            print(f"Iteration: {ITER}. {ELEPH} elephants currently living.")
         
-        # canvas.delete("all") #Reset grid for next iteration
+        canvas.delete("all") #Reset grid for next iteration
     
-        # for r in range(len(grid)):
-        #     for c in range(len(grid[0])):
-        #         if grid[r][c] == 9:
-        #             colour = "gray" #Elephant
-        #         elif grid[r][c] == 1:
-        #             colour = "red" #Poacher
-        #         elif grid[r][c] == 6:
-        #             colour = "blue" #Protector
-        #         else: 
-        #             colour = "green" #Grass
-        #         canvas.create_rectangle((15*c,15*r), (15*(c+1), 15*(r+1)), fill=colour)
+        for r in range(len(grid)):
+            for c in range(len(grid[0])):
+                if grid[r][c] == 9:
+                    colour = "gray" #Elephant
+                elif grid[r][c] == 1:
+                    colour = "red" #Poacher
+                elif grid[r][c] == 6:
+                    colour = "blue" #Protector
+                else: 
+                    colour = "green" #Grass
+                canvas.create_rectangle((15*c,15*r), (15*(c+1), 15*(r+1)), fill=colour)
     
         # Start with a copy of the current grid
         nextgrid = []
@@ -230,13 +230,13 @@ for run_time in range(runs):
     
         Elephant.append(ELEPH)
           
-        #window.update()
-        #sleep(0.001)
+        window.update()
+        sleep(0.1)
      
 Count.append(ITER)
     
-    # window.destroy()
-    # window.mainloop()
+window.destroy()
+window.mainloop()
 
 Elph_surv = []
 
@@ -246,48 +246,48 @@ print(results)
 
 #NEW SECTION FOR PLOTTING THE ELEPHANTS OVER THE TIME SPAN
 
-plt.hist(results, bins=15, color='skyblue', edgecolor='black')
-plt.xlabel("Number of Elephants")
-plt.ylabel("Frequency")
-plt.title("Elephants survival")
-plt.show()
+# plt.hist(results, bins=15, color='skyblue', edgecolor='black')
+# plt.xlabel("Number of Elephants")
+# plt.ylabel("Frequency")
+# plt.title("Elephants survival")
+# plt.show()
 
-import numpy as np
-from scipy import stats
+# import numpy as np
+# from scipy import stats
 
-results = np.array(results) #Create an array based on the list
+# results = np.array(results) #Create an array based on the list
 
-print(f"Number of simulations: {len(results)}")
-print(f"Mean: {np.mean(results):.2f}")
-print(f"Median: {np.median(results):.2f}")
-print(f"Mode: {stats.mode(results)[0]:.2f}")
-print(f"Variance: {np.var(results):.2f}")
-print(f"Std deviation: {np.std(results):.2f}")
-print(f"Min: {min(results):.2f}")
-print(f"Max: {max(results):.2f}")
-print(f"IQ range: {stats.iqr(results):.2f}")
+# print(f"Number of simulations: {len(results)}")
+# print(f"Mean: {np.mean(results):.2f}")
+# print(f"Median: {np.median(results):.2f}")
+# print(f"Mode: {stats.mode(results)[0]:.2f}")
+# print(f"Variance: {np.var(results):.2f}")
+# print(f"Std deviation: {np.std(results):.2f}")
+# print(f"Min: {min(results):.2f}")
+# print(f"Max: {max(results):.2f}")
+# print(f"IQ range: {stats.iqr(results):.2f}")
 
-hypothesized_mean = 46.07
-t_statistic, p_value = stats.ttest_1samp(results, hypothesized_mean)
+# hypothesized_mean = 46.07
+# t_statistic, p_value = stats.ttest_1samp(results, hypothesized_mean)
 
-print("=" * 60)
-print("HYPOTHESIS TEST")
-print("=" * 60)
-print(f"H₀: μ = {hypothesized_mean}")
-print(f"Hₐ: μ ≠ {hypothesized_mean}")
-print("Significance level: α = 0.05")
-print()
+# print("=" * 60)
+# print("HYPOTHESIS TEST")
+# print("=" * 60)
+# print(f"H₀: μ = {hypothesized_mean}")
+# print(f"Hₐ: μ ≠ {hypothesized_mean}")
+# print("Significance level: α = 0.05")
+# print()
 
-print(f"Test statistic (t): {t_statistic:.4f}")
-print(f"P-value: {p_value:.4f}")
-print(f"Degrees of freedom: {len(results) - 1}")
+# print(f"Test statistic (t): {t_statistic:.4f}")
+# print(f"P-value: {p_value:.4f}")
+# print(f"Degrees of freedom: {len(results) - 1}")
 
-#MONTE CARLO
+# #MONTE CARLO
 
-cumulative_mean = np.cumsum(results) / np.arange(1, len(results) + 1)
+# cumulative_mean = np.cumsum(results) / np.arange(1, len(results) + 1)
 
-plt.plot(cumulative_mean)
-plt.xlabel("Iteration")
-plt.ylabel("Cumulative mean")
-plt.title("Monte Carlo cumulative mean plot")
-plt.show()
+# plt.plot(cumulative_mean)
+# plt.xlabel("Iteration")
+# plt.ylabel("Cumulative mean")
+# plt.title("Monte Carlo cumulative mean plot")
+# plt.show()
